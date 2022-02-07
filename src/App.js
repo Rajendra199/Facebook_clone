@@ -1,24 +1,37 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Chatbar from './component/Chatbar';
+import ChatBox from './component/ChatBox';
+import Navbar from './component/Navbar';
+import Posts from './component/Posts';
+import Sidebar from './component/Sidebar';
+
+
+
 
 function App() {
+  const [state, setState] = useState(false)
+  const [current, setCurrent] = useState({})
+  const openChat = (user) => {
+    setState(true)
+    setCurrent(user)
+  }
+  const closeChat = () => {
+    setState(false)
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar />
+      <div className="facebook">
+        <Sidebar />
+      </div>
+      <div className="facebook">
+        <Posts />
+        <Chatbar openChat={openChat} />
+        <ChatBox state={state} current={current} closeChat={closeChat} />
+      </div>
     </div>
+
   );
 }
 
